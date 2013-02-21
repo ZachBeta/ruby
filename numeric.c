@@ -524,6 +524,9 @@ num_real_p(VALUE num)
  *
  *  Returns <code>true</code> if <i>num</i> is an <code>Integer</code>
  *  (including <code>Fixnum</code> and <code>Bignum</code>).
+ *
+ *      (1.0).integer? #=> false
+ *      (1).integer?   #=> true
  */
 
 static VALUE
@@ -598,6 +601,10 @@ num_nonzero_p(VALUE num)
  *
  *  Invokes the child class's <code>to_i</code> method to convert
  *  <i>num</i> to an integer.
+ *
+ *      1.0.class => Float
+ *      1.0.to_int.class => Fixnum
+ *      1.0.to_i.class => Fixnum
  */
 
 static VALUE
@@ -735,6 +742,8 @@ flo_coerce(VALUE x, VALUE y)
  *    -float  ->  float
  *
  * Returns float, negated.
+ *
+ *      -1.0 #=> -1.0
  */
 
 static VALUE
@@ -749,6 +758,8 @@ flo_uminus(VALUE flt)
  *
  * Returns a new float which is the sum of <code>float</code>
  * and <code>other</code>.
+ *
+ *      9000.0 + 1 #=> 9001.0
  */
 
 static VALUE
@@ -772,6 +783,8 @@ flo_plus(VALUE x, VALUE y)
  *
  * Returns a new float which is the difference of <code>float</code>
  * and <code>other</code>.
+ *
+ *     19.0 - 2 #=> 17.0
  */
 
 static VALUE
@@ -795,6 +808,8 @@ flo_minus(VALUE x, VALUE y)
  *
  * Returns a new float which is the product of <code>float</code>
  * and <code>other</code>.
+ *
+ *      42.0 * 42 #=> 1764.0
  */
 
 static VALUE
@@ -818,6 +833,8 @@ flo_mul(VALUE x, VALUE y)
  *
  * Returns a new float which is the result of dividing
  * <code>float</code> by <code>other</code>.
+ *
+ *      210.0 / 5 #=> 42.0
  */
 
 static VALUE
@@ -845,6 +862,8 @@ flo_div(VALUE x, VALUE y)
  *     float.quo(numeric)  ->  float
  *
  *  Returns float / numeric.
+ *
+ *      210.0.quo 5 #=> 42.0
  */
 
 static VALUE
@@ -899,10 +918,10 @@ ruby_float_mod(double x, double y)
 
 /*
  *  call-seq:
- *     flt % other        ->  float
- *     flt.modulo(other)  ->  float
+ *     float % other        ->  float
+ *     float.modulo(other)  ->  float
  *
- *  Return the modulo after division of <code>flt</code> by <code>other</code>.
+ *  Return the modulo after division of <code>float</code> by <code>other</code>.
  *
  *     6543.21.modulo(137)      #=> 104.21
  *     6543.21.modulo(137.24)   #=> 92.9299999999996
@@ -941,9 +960,12 @@ dbl2ival(double d)
 
 /*
  *  call-seq:
- *     flt.divmod(numeric)  ->  array
+ *     float.divmod(numeric)  ->  array
  *
  *  See <code>Numeric#divmod</code>.
+ *
+ *      42.0.divmod 6 #=> [7, 0.0]
+ *      42.0.divmod 5 #=> [8, 2.0]
  */
 
 static VALUE
